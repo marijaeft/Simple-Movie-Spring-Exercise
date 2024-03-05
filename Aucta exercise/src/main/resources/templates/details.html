@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
+
+</head>
+<body>
+
+<div class="details-container">
+    <h2>Movie Details</h2>
+    <div>
+        <strong class="detail-label">Movie ID:</strong> <span class="detail-value" th:text="${movie.id}">[movie.id]</span>
+    </div>
+    <div>
+        <strong class="detail-label">Movie Title:</strong> <span class="detail-value" th:text="${movie.title}">[movie.title]</span>
+    </div>
+    <div>
+        <strong class="detail-label">Description:</strong> <span class="detail-value" th:text="${movie.description}">[movie.description]</span>
+    </div>
+    <div>
+        <strong class="detail-label">Genre:</strong> <span class="detail-value" th:text="${movie.genre}">[movie.genre]</span>
+    </div>
+    <div>
+        <strong class="detail-label">Year:</strong> <span class="detail-value" th:text="${movie.year}">[movie.year]</span>
+    </div>
+    <div>
+        <strong class="detail-label">Average Rating:</strong> <span class="detail-value" th:text="${movie.getAverageRating()}">[movie.rating]</span>
+    </div>
+</div>
+<div class="details-container">
+<h2 class="rating-title">Ratings:</h2>
+<ul class="rating-list">
+    <li class="rating-item" th:each="rating:${movie.ratings}"><span class="rating-value" th:text="${rating.id}+': '+${rating.rating}"></span></li>
+</ul>
+</div>
+<div class="details-container">
+<h2 class="review-title">Reviews:</h2>
+<ul class="review-list">
+    <li class="review-item" th:each="review:${movie.reviews}"><span class="review-value" th:text="${review.id}+': '+${review.reviewText.toString()}"></span></li>
+</ul>
+</div>
+</body>
+</html>

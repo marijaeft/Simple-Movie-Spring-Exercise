@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movies</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+    <form id="filter-form">
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title"/>
+
+        <label for="genre">Genre</label>
+        <select id="genre" name="genre">
+            <option value="">All</option>
+            <option value="[genre]" th:each="genre:${genres}" th:text="${genre.toString()}" th:value="${genre}"> [genre.name]</option>
+        </select>
+
+        <label for="year">Year</label>
+        <input id="year" type="number" name="year"/>
+
+        <button id="filter" type="submit">Filter</button>
+    </form>
+
+    <div>
+        <a href="/movies/add" class="add-item">
+            Add new movie
+        </a>
+    </div>
+
+    <div>
+        <a href="/reviews" class="add-item">
+            View all of the reviews
+        </a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Movie ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Average Rating</th>
+        </tr>
+        <tr class="item" th:each="movie:${movies}">
+            <td th:text="${movie.id}">[movie.id]</td>
+            <td th:text="${movie.title}">[movie.title]</td>
+            <td th:text="${movie.genre}">
+            </td>
+            <td th:text="${movie.year}">[movie.year]</td>
+            <td th:text="${movie.getAverageRating()}">[movie.rating]</td>
+            <td>
+                <a th:href="@{'/movies/{id}' (id=${movie.id})}" >Details</a>
+            </td>
+            <td>
+                <form th:action="@{'/movies/' + ${movie.id} + '/rate'}" th:method="POST">
+                    <label for="rating">Rating:</label>
+                    <input type="number" id="rating" name="rating" min="1" max="10">
+                    <button type="submit">Submit Rating</button>
+                </form>
+            </td>
+            <td>
+                <!-- Add Review Form -->
+                <form th:action="@{'/movies/' + ${movie.id} + '/review'}" th:method="POST">
+                    <label for="review">Review:</label>
+                    <textarea id="review" name="review" rows="3" cols="30"></textarea>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

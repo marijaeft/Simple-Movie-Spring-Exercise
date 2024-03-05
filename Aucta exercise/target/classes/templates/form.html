@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add movie</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
+</head>
+<body>
+<div class="add-movie-container">
+<form class="add-movie-form" th:method="POST" th:action="@{'/movies'}">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text"
+               id="title"
+               name="title"
+               required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text"
+               id="description"
+               name="description"
+               required>
+    </div>
+    <div class="form-group">
+        <label for="genre">Genre</label><br/>
+        <select id="genre" name="genre" multiple="multiple" size="5">
+            <!-- For each genre you should have one <option> like below  -->
+            <option th:each="genre:${genres}" th:text="${genre}" th:value="${genre}"> [genre.name]</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="year">Release Year</label>
+        <input type="text"
+               id="year"
+               name="year"
+               required>
+    </div>
+
+    <button id="submit" type="submit">Submit</button>
+    <a id="back" href="/movies" type="button" class="btn btn-primary">Back to movies</a>
+</form>
+</div>
+
+</body>
+</html>
